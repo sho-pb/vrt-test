@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+*storybook.log.reg
+
+# reg-suit
+
+directory_contains_actual_images
