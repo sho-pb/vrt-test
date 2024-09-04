@@ -49,3 +49,6 @@ snapshots.spec.ts-snapshots
 
 # storybook
 storybook-static
+
+.reg
+snapshots

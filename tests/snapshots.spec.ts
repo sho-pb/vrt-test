@@ -29,10 +29,10 @@ test.describe.parallel('visual regression testing', () => {
       await page.goto(`http://localhost:8080/iframe.html?id=${story.id}`, {
         waitUntil: 'networkidle',
       });
-      expect(await page.screenshot({ fullPage: true })).toMatchSnapshot([
-        story.title,
-        `${story.id}.png`,
-      ]);
+      await page.screenshot({
+        fullPage: true,
+        path: `snapshots/${story.id}.png`,
+      });
     });
   });
 });
