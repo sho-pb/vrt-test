@@ -1,0 +1,42 @@
+name: Run Snapshot Tests
+
+# プルリクエスト作成/更新時に実行
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    # リポジトリをクローン
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # PNPMのセットアップ
+    - name: Setup Node.js and PNPM
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'pnpm'
+
+    - name: Install PNPM
+      run: |
+        npm install -g pnpm
+        pnpm install
+
+    # アーティファクトから .reg/expected を復元
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: expected-reg  # 保存されたアーティファクトの名前
+        path: .reg/expected  # 復元するパス
+
+    # スナップショットを保存
+    - name: Run save-snapshot
+      run: pnpm save-snapshot
+
+    # スナップショットテストを実行
+    - name: Run test-snapshot
+      run: pnpm test-snapshot

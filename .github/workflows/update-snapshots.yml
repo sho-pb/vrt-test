@@ -1,0 +1,39 @@
+name: Save Artifacts After Merge
+
+# プルリクエストがマージされた後、特定のブランチにpushされたときに実行
+on:
+  push:
+    branches:
+      - main  # マージ先のブランチを指定
+
+jobs:
+  save-artifacts:
+    runs-on: ubuntu-latest
+
+    steps:
+    # リポジトリをクローン
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # PNPMのセットアップ
+    - name: Setup Node.js and PNPM
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # 必要に応じてNode.jsのバージョンを変更
+        cache: 'pnpm'
+
+    - name: Install PNPM
+      run: |
+        npm install -g pnpm
+        pnpm install
+
+    # スナップショットを保存
+    - name: Run save-snapshot
+      run: pnpm save-snapshot
+
+    # アーティファクトをアップロード
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: expected-reg  # アーティファクトの名前
+        path: .reg/expected  # 保存するディレクトリ
