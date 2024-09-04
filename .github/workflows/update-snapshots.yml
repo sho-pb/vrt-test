@@ -29,6 +29,9 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
+    - name: Build storybook
+      run: pnpm build-storybook
+
     # スナップショットを保存
     - name: Run save-snapshot
       run: pnpm save-snapshot
