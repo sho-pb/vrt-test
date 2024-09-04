@@ -10,8 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "start-storybook": "npx http-server storybook-static",
-    "save-snapshot": "npx playwright test tests/snapshots.spec.ts",
-    "test:snapshot": "node ./scripts/snapshot.js"
+    "save-snapshot": "node ./scripts/snapshot.js",
+    "test-snapshot": "reg-suit compare"
   },
   "dependencies": {
     "next": "14.2.5",
