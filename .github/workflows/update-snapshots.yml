@@ -26,6 +26,9 @@ jobs:
       with:
         version: 8.14.1
 
+    - name: Install dependencies
+      run: pnpm install
+
     # スナップショットを保存
     - name: Run save-snapshot
       run: pnpm save-snapshot
