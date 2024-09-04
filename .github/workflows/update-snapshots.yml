@@ -32,6 +32,9 @@ jobs:
     - name: Build storybook
       run: pnpm build-storybook
 
+    - name: Setup Playwright
+      run: pnpm playwright install
+
     # スナップショットを保存
     - name: Run save-snapshot
       run: pnpm save-snapshot
